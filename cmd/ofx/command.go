@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/howeyc/gopass"
+	"os"
 )
 
 type command struct {
@@ -24,15 +25,15 @@ var serverURL, username, password, org, fid, appID, appVer, ofxVersion, clientUI
 var noIndentRequests bool
 
 func defineServerFlags(f *flag.FlagSet) {
-	f.StringVar(&serverURL, "url", "", "Financial institution's OFX Server URL (see ofxhome.com if you don't know it)")
-	f.StringVar(&username, "username", "", "Your username at financial institution")
+	f.StringVar(&serverURL, "url", "https://ofx.chase.com", "Financial institution's OFX Server URL (see ofxhome.com if you don't know it)")
+	f.StringVar(&clientUID, "clientuid", os.Getenv("CHASE_CLIENTUID"), "Client UID (only required by a few FIs, like Chase)")
+	f.StringVar(&username, "username", os.Getenv("CHASE_USERNAME"), "Your username at financial institution")
 	f.StringVar(&password, "password", "", "Your password at financial institution")
-	f.StringVar(&org, "org", "", "'ORG' for your financial institution")
-	f.StringVar(&fid, "fid", "", "'FID' for your financial institution")
+	f.StringVar(&org, "org", "B1", "'ORG' for your financial institution")
+	f.StringVar(&fid, "fid", "10898", "'FID' for your financial institution")
 	f.StringVar(&appID, "appid", "QWIN", "'APPID' to pretend to be")
-	f.StringVar(&appVer, "appver", "2400", "'APPVER' to pretend to be")
-	f.StringVar(&ofxVersion, "ofxversion", "203", "OFX version to use")
-	f.StringVar(&clientUID, "clientuid", "", "Client UID (only required by a few FIs, like Chase)")
+	f.StringVar(&appVer, "appver", "2700", "'APPVER' to pretend to be")
+	f.StringVar(&ofxVersion, "ofxversion", "220", "OFX version to use")
 	f.BoolVar(&noIndentRequests, "noindent", false, "Don't indent OFX requests")
 }
 
