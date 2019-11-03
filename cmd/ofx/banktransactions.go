@@ -77,9 +77,6 @@ func bankTransactions() {
 
 func printTransaction(defCurrency ofxgo.CurrSymbol, tran *ofxgo.Transaction) {
 	currency := defCurrency
-	if ok, _ := tran.Currency.Valid(); ok {
-		currency = tran.Currency.CurSym
-	}
 
 	var name string
 	if len(tran.Name) > 0 {
