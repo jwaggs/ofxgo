@@ -71,7 +71,7 @@ account and print the balance:
 
   import (
     "fmt"
-    "github.com/aclindsa/ofxgo"
+    "github.com/jwaggs/ofxgo"
     "os"
   )
 

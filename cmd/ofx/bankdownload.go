@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/aclindsa/ofxgo"
+	"github.com/jwaggs/ofxgo"
 	"io"
 	"os"
 )

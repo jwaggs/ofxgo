@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/aclindsa/ofxgo"
+	"github.com/jwaggs/ofxgo"
 	"os"
 )
 

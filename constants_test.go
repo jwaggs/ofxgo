@@ -7,7 +7,7 @@ package ofxgo_test
  */
 
 import (
-	"github.com/aclindsa/ofxgo"
+	"github.com/jwaggs/ofxgo"
 	"github.com/aclindsa/xml"
 	"strings"
 	"testing"
