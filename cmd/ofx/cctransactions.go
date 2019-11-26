@@ -60,9 +60,9 @@ func ccTransactions() {
 		fmt.Println("Transactions:")
 		for _, tran := range stmt.BankTranList.Transactions {
 			currency := stmt.CurDef
-			if ok, _ := tran.Currency.Valid(); ok {
-				currency = tran.Currency.CurSym
-			}
+			//if ok, _ := tran.Currency.Valid(); ok {
+			//	currency = tran.Currency.CurSym
+			//}
 
 			var name string
 			if len(tran.Name) > 0 {
@@ -75,6 +75,7 @@ func ccTransactions() {
 				name = name + " - " + string(tran.Memo)
 			}
 
+			fmt.Printf("%s - %s", tran.FiTID, tran.CorrectFiTID)
 			fmt.Printf("%s %-15s %-11s %s\n", tran.DtPosted, tran.TrnAmt.String()+" "+currency.String(), tran.TrnType, name)
 		}
 	}

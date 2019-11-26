@@ -11,7 +11,7 @@ var commands = []command{
 	downloadCommand,
 	ccDownloadCommand,
 	invDownloadCommand,
-	bankTransactionsCommand,
+	// bankTransactionsCommand,
 	ccTransactionsCommand,
 	invTransactionsCommand,
 	detectSettingsCommand,

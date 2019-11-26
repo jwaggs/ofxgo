@@ -58,6 +58,7 @@ func getAccounts() {
 		for _, acct := range acctinfo.AcctInfo {
 			if acct.BankAcctInfo != nil {
 				fmt.Printf("Bank Account:\n\tBankID: \"%s\"\n\tAcctID: \"%s\"\n\tAcctType: %s\n", acct.BankAcctInfo.BankAcctFrom.BankID, acct.BankAcctInfo.BankAcctFrom.AcctID, acct.BankAcctInfo.BankAcctFrom.AcctType)
+				bankTransactions(acct.BankAcctInfo.BankAcctFrom.AcctType.String(),  acct.BankAcctInfo.BankAcctFrom.AcctID.String(), acct.BankAcctInfo.BankAcctFrom.BankID.String())
 			} else if acct.CCAcctInfo != nil {
 				fmt.Printf("Credit card:\n\tAcctID: \"%s\"\n", acct.CCAcctInfo.CCAcctFrom.AcctID)
 			} else if acct.InvAcctInfo != nil {

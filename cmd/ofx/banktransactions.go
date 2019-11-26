@@ -1,31 +1,30 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"github.com/jwaggs/ofxgo"
 	"os"
 )
 
-var bankTransactionsCommand = command{
-	Name:        "transactions-bank",
-	Description: "Print bank transactions and balance",
-	Flags:       flag.NewFlagSet("transactions-bank", flag.ExitOnError),
-	CheckFlags:  checkServerFlags,
-	Do:          bankTransactions,
-}
+//var bankTransactionsCommand = command{
+//	Name:        "transactions-bank",
+//	Description: "Print bank transactions and balance",
+//	Flags:       flag.NewFlagSet("transactions-bank", flag.ExitOnError),
+//	CheckFlags:  checkServerFlags,
+//	Do:          bankTransactions,
+//}
+//
+//func init() {
+//	defineServerFlags(bankTransactionsCommand.Flags)
+//	bankTransactionsCommand.Flags.StringVar(&bankID, "bankid", "", "BankID (from `get-accounts` subcommand)")
+//	bankTransactionsCommand.Flags.StringVar(&acctID, "acctid", "", "AcctID (from `get-accounts` subcommand)")
+//	bankTransactionsCommand.Flags.StringVar(&acctType, "accttype", "CHECKING", "AcctType (from `get-accounts` subcommand)")
+//}
 
-func init() {
-	defineServerFlags(bankTransactionsCommand.Flags)
-	bankTransactionsCommand.Flags.StringVar(&bankID, "bankid", "", "BankID (from `get-accounts` subcommand)")
-	bankTransactionsCommand.Flags.StringVar(&acctID, "acctid", "", "AcctID (from `get-accounts` subcommand)")
-	bankTransactionsCommand.Flags.StringVar(&acctType, "accttype", "CHECKING", "AcctType (from `get-accounts` subcommand)")
-}
-
-func bankTransactions() {
+func bankTransactions(accType, accID, bnkID string) {
 	client, query := newRequest()
 
-	acctTypeEnum, err := ofxgo.NewAcctType(acctType)
+	acctTypeEnum, err := ofxgo.NewAcctType(accType)
 	if err != nil {
 		fmt.Println("Error parsing accttype:", err)
 		os.Exit(1)
@@ -40,8 +39,8 @@ func bankTransactions() {
 	statementRequest := ofxgo.StatementRequest{
 		TrnUID: *uid,
 		BankAcctFrom: ofxgo.BankAcct{
-			BankID:   ofxgo.String(bankID),
-			AcctID:   ofxgo.String(acctID),
+			BankID:   ofxgo.String(bnkID),
+			AcctID:   ofxgo.String(accID),
 			AcctType: acctTypeEnum,
 		},
 		Include: true,
@@ -89,5 +88,8 @@ func printTransaction(defCurrency ofxgo.CurrSymbol, tran *ofxgo.Transaction) {
 		name = name + " - " + string(tran.Memo)
 	}
 
-	fmt.Printf("%s %-15s %-11s %s\n", tran.DtPosted, tran.TrnAmt.String()+" "+currency.String(), tran.TrnType, name)
+	//fmt.Printf("%s %-15s %-11s %s\n", tran.DtPosted, tran.TrnAmt.String()+" "+currency.String(), tran.TrnType, name)
+
+	fmt.Printf("%s @ %s:\n  %s %s %s \n", tran.FiTID, tran.DtPosted, tran.TrnAmt.String()+" "+currency.String(), tran.TrnType, name)
+	// fmt.Printf("\n%s - %s\n", tran.FiTID, tran.CorrectFiTID)
 }
